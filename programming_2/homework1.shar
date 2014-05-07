@@ -1,0 +1,703 @@
+#!/bin/sh
+# This is a shell archive (produced by GNU sharutils 4.6.1).
+# To extract the files from this archive, save it to some FILE, remove
+# everything before the `#!/bin/sh' line above, then type `sh FILE'.
+#
+lock_dir=_sh18062
+# Made on 2011-03-07 02:43 EET by <shumon@mozart.cc.tut.fi>.
+# Source directory was `/home/shumon/prog2'.
+#
+# Existing files will *not* be overwritten, unless `-c' is specified.
+#
+# This shar contains:
+# length mode       name
+# ------ ---------- ------------------------------------------
+#   7990 -rw-r--r-- main.cc
+#  12070 -rw-r--r-- functions.cc
+#   1438 -rw-r--r-- main.hh
+#
+MD5SUM=${MD5SUM-md5sum}
+f=`${MD5SUM} --version | egrep '^md5sum .*(core|text)utils'`
+test -n "${f}" && md5check=true || md5check=false
+${md5check} || \
+  echo 'Note: not verifying md5sums.  Consider installing GNU coreutils.'
+save_IFS="${IFS}"
+IFS="${IFS}:"
+gettext_dir=FAILED
+locale_dir=FAILED
+first_param="$1"
+for dir in $PATH
+do
+  if test "$gettext_dir" = FAILED && test -f $dir/gettext \
+     && ($dir/gettext --version >/dev/null 2>&1)
+  then
+    case `$dir/gettext --version 2>&1 | sed 1q` in
+      *GNU*) gettext_dir=$dir ;;
+    esac
+  fi
+  if test "$locale_dir" = FAILED && test -f $dir/shar \
+     && ($dir/shar --print-text-domain-dir >/dev/null 2>&1)
+  then
+    locale_dir=`$dir/shar --print-text-domain-dir`
+  fi
+done
+IFS="$save_IFS"
+if test "$locale_dir" = FAILED || test "$gettext_dir" = FAILED
+then
+  echo=echo
+else
+  TEXTDOMAINDIR=$locale_dir
+  export TEXTDOMAINDIR
+  TEXTDOMAIN=sharutils
+  export TEXTDOMAIN
+  echo="$gettext_dir/gettext -s"
+fi
+if (echo "testing\c"; echo 1,2,3) | grep c >/dev/null
+then if (echo -n test; echo 1,2,3) | grep n >/dev/null
+     then shar_n= shar_c='
+'
+     else shar_n=-n shar_c= ; fi
+else shar_n= shar_c='\c' ; fi
+f=shar-touch.$$
+st1=200112312359.59
+st2=123123592001.59
+st2tr=123123592001.5 # old SysV 14-char limit
+st3=1231235901
+
+if touch -am -t ${st1} ${f} >/dev/null 2>&1 && \
+   test ! -f ${st1} && test -f ${f}; then
+  shar_touch='touch -am -t $1$2$3$4$5$6.$7 "$8"'
+
+elif touch -am ${st2} ${f} >/dev/null 2>&1 && \
+   test ! -f ${st2} && test ! -f ${st2tr} && test -f ${f}; then
+  shar_touch='touch -am $3$4$5$6$1$2.$7 "$8"'
+
+elif touch -am ${st3} ${f} >/dev/null 2>&1 && \
+   test ! -f ${st3} && test -f ${f}; then
+  shar_touch='touch -am $3$4$5$6$2 "$8"'
+
+else
+  shar_touch=:
+  echo
+  ${echo} 'WARNING: not restoring timestamps.  Consider getting and'
+  ${echo} 'installing GNU `touch'\'', distributed in GNU File Utilities...'
+  echo
+fi
+rm -f ${st1} ${st2} ${st2tr} ${st3} ${f}
+#
+if test ! -d ${lock_dir}
+then : ; else ${echo} 'lock directory '${lock_dir}' exists'
+  exit 1
+fi
+if mkdir ${lock_dir}
+then ${echo} 'x - created lock directory `'${lock_dir}\''.'
+else ${echo} 'x - failed to create lock directory `'${lock_dir}\''.'
+  exit 1
+fi
+# ============= main.cc ==============
+if test -f 'main.cc' && test "$first_param" != -c; then
+  ${echo} 'x -SKIPPING main.cc (file already exists)'
+else
+${echo} 'x - extracting main.cc (text)'
+  sed 's/^X//' << 'SHAR_EOF' > 'main.cc' &&
+/*
+X * Author: Abu Shumon
+X * Student number: 224088
+X * Program name: Who wants to be a millioner
+X * Version : 1.0
+X * All right reserved by the author.
+X * This is implementation file of a reknown game "Who wants to be a millioner"
+X * Details information about the game can be found here: 
+X * http://www.cs.tut.fi/~prog2/homework/
+X * 
+X */
+X
+#include<iostream>
+#include<vector>
+#include<string>
+#include <sstream>
+#include <fstream>
+#include <cstdlib>
+#include<algorithm>
+#include <ctime>
+#include "main.hh"
+X
+using namespace std;
+void option(); // User selects the option from the menu.
+// Execute options depending on the selected option
+void selectOption(vector<QuesType> &contvec, vector<int> &john, QuesType &n1, QuesType &n2, int on /*string filename*/);
+int randnumber(int ub); // Function to generate the random number.
+X
+int main(){ // Main function where program begis to execute
+X   vector<QuesType> contvec; // Class type vector
+X   vector<int> john; // Vector used to print the generated question.
+X   vector<QuesType >::iterator myit; // Class type iterator to iterate
+X   QuesType n1; // An object of the class QuesType
+X   QuesType n2; // An object of the class QuesType
+X   string line; // variable to hold the input from file line by line
+X   int opnumber; // variable that holds the option given by the user
+X   string d_level; // variable that holds difficulty level
+X   string question; // variable that holds question description
+X   string o1; // variable that holds answer A
+X   string o2; // variable that holds answer B
+X   string o3; // variable that holds answer C
+X   string o4; // variable that holds answer D
+X   string c_ans; // variable that holds correct answer
+X   char in_or_out; // variable that holds answer exit or stay
+X   string filename;
+X   cout << "Enter the file name: ";
+X   cin >> filename;
+X   
+X   ifstream reading_data(filename.c_str());
+X   if(!reading_data){
+X    cout<<"Error opening file!"<<endl;
+X   }
+X    else{
+X	cout << "Text file successfully loaded." << endl; //
+X   // ifstream reading_data("b.txt");
+X   while(!reading_data.eof()){ // reading data till end of file
+X	getline (reading_data, line); // reading data line by line
+X	d_level = line; // assigning it to variable
+X	getline (reading_data, line, '?'); // reading data line by line
+X	question = line; // assigning it to variable
+X	reading_data.ignore(); // reading data line by line
+X	getline (reading_data, line); // reading data line by line
+X	o1 = line; // assigning it to variable
+X	getline (reading_data, line); // reading data line by line
+X	o2 = line; // assigning it to variable
+X	getline (reading_data, line); // reading data line by line
+X	o3 = line; // assigning it to variable
+X	getline (reading_data, line); // reading data line by line
+X	o4 = line; // assigning it to variable
+X	getline (reading_data, line); // reading data line by line
+X	c_ans = line; // assigning it to variable
+X	n1.AddfromFile(d_level, question, o1, o2, o3, o4, c_ans); //
+X	contvec.push_back(n1); // pushing back the object to the vector
+X	} // end of reading from file
+X    cout << "Number of Questions - " << contvec.size() << endl;
+X	
+X   do{
+X	option();  // Calling the option function to select the menu
+X	//filename=argv[1]; //
+X	cin >> opnumber; // Putting the given value to option number
+X	selectOption(contvec, john, n1, n2, opnumber /*filename*/); //
+X	// Ask user whether to continue or not
+X	cout << "Press y to continue, exit otherwise: "; //
+X	cin >> in_or_out; // Putting the input to the variable		
+X     }while(in_or_out == 'y' || in_or_out == 'Y'); //endl of dowhile
+X	}
+X
+X   return 0;
+}//end of main
+X
+/*
+X * Option function definitation
+X * It gives the user to select different option from the manu
+X * Its a void function, so it returns nothing
+X */
+void option(){ //
+X   cout << "Select menu item: " << endl; //
+X   // Option for add a new question
+X   cout << "[1] Add a new question" << endl; 
+X   cout << "[2] Edit a question" << endl; // Option for edit a question
+X   // Option for delete a question
+X   cout << "[3] Remove a question" << endl; 
+X   //Option for print all questions
+X   cout << "[4] Print all questions" << endl;
+X   // Option for print specific question
+X   cout << "[5] Print a question by number" << endl; 
+X   // Option for print question based on difficulty level
+X   cout << "[6] Print questions of a given difficulty level" << endl; 
+X   // Option for save questions to file
+X   cout << "[7] Save questions to a file" << endl; 
+X   // Option for generate question set
+X   cout << "[8] Generate a question set" << endl; 
+X   // Option for print the generated question set
+X   cout << "[9] Print the generated question set" << endl; 
+X   cout << "Your choice:"; //
+}
+X
+/* Function defination of selectFunction
+X * It performs the specific task based on the option selected 
+X * by the user. It receives two ojects of the class, and the option number
+X * And after completing the task, it returns cursor to the main function.
+X */
+void selectOption(vector<QuesType> &contvec, vector<int> &john, QuesType &n1, QuesType &n2, int on /*string filename*/){
+X   vector<QuesType >::iterator myit; // Class type iterator to iterate
+X   int qno; // integer variable that holds the question number
+X   signed int target_qno; // integer variable hold the target question
+X   int vanuhi = 0; // integer variable holds the size of john vector
+X   string target_dlevel; // string variable holds the target difficulty
+X   int bal = contvec.size();
+X   switch(on){ // selects options based on the user input     
+X      case 1: // perform the add new question task
+X	n2.AddQuestion(contvec, n1); // call the member function
+X	break; // breaks after case 1			
+X      case 2: // perform the edit question task
+X	cout << "Select question number [1-" << contvec.size() << "]: "; //
+X	cin >> target_qno; // takes the question number from the user			
+X	n2.EditQuestion(target_qno, n2, contvec); // pass it to the member function
+X	break; // breaks after case 2			
+X      case 3: // perform remove question task
+X	cout << "Enter the question number you wish to delete: " << endl; //
+X	cin >> qno; // takes the question number from the user
+X	n2.RemoveQuestion(qno, contvec); // pass it to the member function
+X	break; // breaks after case 3			
+X      case 4: // perform print all the questions task
+X	// irerates over the vector and prints all the question
+X	for (myit = contvec.begin(); myit< contvec.end(); myit++) //
+X	  myit->PrintAll(); //
+X	break; // breaks after case 4	
+X      case 5: // perform print a specific question task
+X	
+X	cout << "Enter the question number [1 - " << contvec.size() << "]: "; //
+X	cin >> target_qno; // takes the question number from the user
+X	// irerates over the vector and prints that question
+X	if (target_qno > 0 && target_qno < bal){
+X	for (myit = contvec.begin()+target_qno-1; myit < contvec.begin()+target_qno; myit++)
+X	  myit -> PrintAQuestion(); //
+X	}
+X	else{
+X	   cout << "ERROR: Question number should be from 1 to" << contvec.size() << endl;
+X	}
+X	break; // breaks after case 5			
+X      case 6: // perform the print by difficulty level task
+X	cout << "Enter the difficulty level to print the questions: ";
+X	cin >> target_dlevel; // takes the diffculty level from the user
+X	n2.PrintByDLevel(target_dlevel, contvec); //
+X	break; // breaks after case 6			
+X      case 7: // perform the save questions to file task
+X	n2.SaveQuestion(contvec /*filename*/); // call the member function
+X	break; // breaks after case 7			
+X      case 8: // perform the generate question set task.
+X	john = n2.GenerateSet(contvec); // call the member function			
+X	break; // breaks after case 8			
+X      case 9: // perform the print generate function
+X	vanuhi = john.size(); //
+X	for (int i = 0; i < vanuhi; i++){ //
+X	     myit = contvec.begin()+ john[i]; // 
+X	     myit -> PrintAQuestion(); //
+X	  } // end fo for
+X	break; // breaks after case 8
+X     } // endl of switch	
+} // end of function
+X
+SHAR_EOF
+  (set 20 11 03 07 01 48 27 'main.cc'; eval "$shar_touch") &&
+  chmod 0644 'main.cc'
+if test $? -ne 0
+then ${echo} 'restore of main.cc failed'
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'main.cc: MD5 check failed'
+       ) << SHAR_EOF
+68fd40016d92947b5a2ecb8e710be2c7  main.cc
+SHAR_EOF
+  else
+test `LC_ALL=C wc -c < 'main.cc'` -ne 7990 && \
+  ${echo} 'restoration warning:  size of main.cc is not 7990'
+  fi
+fi
+# ============= functions.cc ==============
+if test -f 'functions.cc' && test "$first_param" != -c; then
+  ${echo} 'x -SKIPPING functions.cc (file already exists)'
+else
+${echo} 'x - extracting functions.cc (text)'
+  sed 's/^X//' << 'SHAR_EOF' > 'functions.cc' &&
+/*
+X * Author: Abu Shumon
+X * Student number: 224088
+X * Program name: Who wants to be a millioner
+X * Version : 1.0
+X * All right reserved by the author.
+X * This is implementation file of a reknown game "Who wants to be a millioner"
+X * Details information about the game can be found here: 
+X * http://www.cs.tut.fi/~prog2/homework/
+X * 
+X */
+X
+#include<iostream>
+#include<vector>
+#include<string>
+#include <sstream>
+#include <fstream>
+#include <cstdlib>
+#include<algorithm>
+#include <ctime>
+#include "main.hh"
+X
+using namespace std;
+X
+int randnumber(int ub); // Function to generate the random number.
+X
+/*
+X * Member function decleration of AddfromFile
+X * it maps the input to the data member
+X */
+void QuesType::AddfromFile(string d_level, string question, string o1, string o2, string o3, string o4, string c_ans){
+X   diflevel = d_level; // mapping to the data member for difficulty level
+X   ques  = question; // mapping the data member for question description
+X   option1 = o1; // mapping the data member for answer A 
+X   option2 = o2; // mapping the data member for answer B
+X   option3 = o3; // mapping the data member for answer C
+X   option4 = o4; // mapping the data member for answer D
+X   corrans = c_ans; // mapping the data member for correct answer
+X   cout << endl; //
+X   
+}
+X
+/*
+X * Member function decleration of AddQuestion
+X * it maps the input to the data member
+X * It vector and its one object is passed by reference.
+X */
+void QuesType::AddQuestion(vector<QuesType> &cv, QuesType &n2){
+X   string a; // Local variables in this scope
+X   string b; // Local variables in this scope
+X   string c; // Local variables in this scope
+X   string d; // Local variables in this scope
+X   string e; // Local variables in this scope
+X   string f; // Local variables in this scope
+X   string g; // Local variables in this scope
+X   cin.ignore(); //
+X   cout << "Enter difficulty level: "; // prompting the user for input
+X   getline (cin, a); // holding to the variable
+X   cout << "Enter question description: ";// prompting the user for input
+X   getline (cin, b, '?'); // holding to the variable
+X   cin.ignore(); //
+X   
+X   cout << "Enter Answer A: "; //
+X   getline (cin, c); // holding to the variable   
+X   cout << "Enter Answer B: "; // prompting the user for input
+X   getline (cin, d); // holding to the variable   
+X   cout << "Enter Answer C: "; // prompting the user for input
+X   getline (cin, e); // holding to the variable   
+X   cout << "Enter Answer D: "; // prompting the user for input
+X   getline (cin, f); // holding to the variable   
+X   cout << "Enter correct answer: "; // prompting the user for input
+X   getline (cin, g); // holding to the variable
+X   n2.AddfromFile(a, b, c, d, e, f, g); // binding the inputs to data members
+X   cv.push_back(n2); // adding the values to the vector	
+}
+X
+/* Member function decleration of EditQuestion
+X * it maps the input to the data member
+X * It receives the specific question number from the user
+X * and a reference of an object is passed as well
+X */
+void QuesType::EditQuestion(signed int target_qno, QuesType &n2, vector<QuesType > &contvec){
+X   vector<QuesType >::iterator myit; // class type iterator
+X   string a; // Local variables in this scope
+X   string b; // Local variables in this scope
+X   string c; // Local variables in this scope
+X   string d; // Local variables in this scope
+X   string e; // Local variables in this scope
+X   string f; // Local variables in this scope
+X   string g; // Local variables in this scope
+X   int i = contvec.size(); // Local variables in this scope
+X   int red_value = target_qno - 1;	 // Local variables in this scope	
+X   // checking whether the question is in valid range or not
+X   if(target_qno >= 0 && target_qno <= i){ //
+X	// printing the description of the question to be edited
+X	cout << "Editing question #" << target_qno << endl; //
+X	cout << "-------------------" << endl; //
+X	for (myit = contvec.begin()+red_value; myit < contvec.begin()+target_qno; myit++) //
+X	  myit -> PrintAQuestion(); //
+X	cout << "-------------------" << endl; //
+X	cin.ignore(); //
+X	cout << "Enter difficulty level: "; // prompting the user for input
+X	getline (cin, a); // holding to the variable
+X	cout << "Enter question description: "; //prompting the user for input
+X	getline (cin, b, '?'); // holding to the variable
+X	cin.ignore(); // 	
+X	cout << "Enter Answer A: "; // prompting the user for input
+X	getline (cin, c); // holding to the variable	
+X	cout << "Enter Answer B: "; // prompting the user for input
+X	getline (cin, d); // holding to the variable	
+X	cout << "Enter Answer C: "; // prompting the user for input
+X	getline (cin, e); // holding to the variable	
+X	cout << "Enter Answer D: "; // prompting the user for input
+X	getline (cin, f); // holding to the variable	
+X	cout << "Enter correct answer: "; // prompting the user for input
+X	getline (cin, g); // holding to the variable
+X	n2.AddfromFile(a, b, c, d, e, f, g); // binding the values	
+X	myit = contvec.begin()+red_value; // defining value of myit
+X	contvec.erase(myit); // erasing that specific content
+X	myit = contvec.begin()+red_value; // defining value of myit
+X	contvec.insert(myit, n2); // inserting the values to the location		
+X     }
+X   else{ //
+X      cout << "ERROR: Question number should be from 1 to " << contvec.size() << endl;
+X   } //
+} //
+X
+/* Member function decleration of RemoveQuestion
+X * it deletes the specific question based on the user input.
+X * it reveives the specific question number the user wish to delete
+X */
+void QuesType::RemoveQuestion(int qno, vector<QuesType > &contvec){ //
+X   contvec.erase(contvec.begin() + qno - 1); //
+} //
+X
+/* Member function decleration of PrintAll
+X * it prints all the questions
+X */
+void QuesType::PrintAll(){ //
+X   cout << diflevel << endl; // printing difficulty level
+X   cout << ques << endl; // printing question description
+X   cout << option1 << endl; // printing option A
+X   cout << option2 << endl; // printing option B
+X   cout << option3 << endl; // printing option C
+X   cout << option4 << endl; // printing option D
+X   cout << corrans << endl; // printing correct answer
+X   
+}
+X
+/* Member function decleration of PrintAQuestion
+X * it prints a specific question
+X */
+void QuesType::PrintAQuestion(){ //
+X   cout << diflevel << endl; // printing difficulty level
+X   cout << ques << endl; // printing question description
+X   cout << option1 << endl; // printing option A
+X   cout << option2 << endl; // printing option B
+X   cout << option3 << endl; // printing option C
+X   cout << option4 << endl; // printing option D
+X   cout << corrans << endl; // printing correct answer   
+}
+X
+/* Member function decleration of PrintByDLevel
+X * it receives the specific difficulty level from the user
+X * and prints the question(s)
+X */
+void QuesType::PrintByDLevel(string target_dlevel, vector<QuesType > &contvec){
+X   vector<QuesType >::iterator myit; // class type iterator
+X   string x; // Local variables in this scope
+X   int boundary; // Local variables in this scope
+X   // converting the string to integer value using stringstream
+X   stringstream(target_dlevel) >> boundary;
+X   // checking the valid range of the given difficulty level
+X   if(boundary > 0 && boundary <= Z){ //	
+X	// iterate over the class type vector.
+X	for(myit = contvec.begin(); myit< contvec.end(); myit++){ //
+X	     x = myit -> ReturnDLevel(); // it returns the difficulty level
+X	     if(target_dlevel == x) // if it matches with use's input
+X	       myit -> PrintAll();	// it prints the question.
+X	  } // end of for
+X     } // end of if
+X   else{ //
+X     cout << "Error: Difficulty level should be from 1 to 12" << endl; 
+X	} // end of else
+}// end of function
+X
+/*
+X * Member function decleration of ReturnDLevel
+X * it returns the difficulty level of a question via private data member
+X */
+string QuesType::ReturnDLevel(){ //
+X   return diflevel; //
+} //
+X
+/*
+X * Member function decleration of SaveQuestion
+X * it saves all the question with details to a file.
+X */
+void QuesType::SaveQuestion(vector<QuesType > &contvec /*string filename*/){ //
+X   // ofstream output_data(filename.c_str()); // stream to write in file
+X   // if(!output_data){
+X      // cout << "Error writing on file!" << endl;
+X   // }
+X   // else{
+X   ofstream output_data("224088_write.txt");
+X   string strarray[7]; // a string array
+X   vector<QuesType >::iterator myit; // class type iterator
+X   // iterate over the class type vector from begin to end
+X   for(myit = contvec.begin(); myit< contvec.end(); myit++){ //
+X	strarray[0] = myit -> diflevel; // storing value of difficulty level
+X	strarray[1] = myit -> ques; // storing value of question description
+X	strarray[2] = myit -> option1; // storing value of answer A
+X	strarray[3] = myit -> option2; // storing value of answer B
+X	strarray[4] = myit -> option3; // storing value of answer C
+X	strarray[5] = myit -> option4; // storing value of answer D
+X	strarray[6] = myit -> corrans; // storing value of correct answer
+X	
+X	for(int i = 0; i < 7; i++){ //
+X	  output_data << strarray[i] << endl;	// writing it to a file
+X	  } // end of for
+X     } // end of for
+X   cout << "successfully saved to a file" << endl;
+X  //}
+} // end of function
+X
+/*
+X * Member function decleration of SaveQuestion
+X * it saves all the question with details to a file.
+X * 
+X */
+vector<int> QuesType::GenerateSet(vector<QuesType > &contvec){
+X   vector<QuesType >::iterator myit; // class type iterator
+X   vector<vector<int> > twodimvec; // two dimentional vector declaration
+X   vector<int > empty; // one dimentional vector declaration
+X   for(int i = 0; i < Z; i++) // pushing the one dimentional vector to
+X     twodimvec.push_back(empty);	 // two dimentional vector
+X   int lu; // local variable in this scope
+X   int k = 0; // local variable in this scope
+X   string temp; // local variable in this scope	
+X   int tr = 0; // local variable in this scope
+X   int c = 0; // local variable in this scope
+X   tr = twodimvec.size(); // assigning the size of twodimvec to tr
+X   // iterate over the class type vector.
+X   for(myit = contvec.begin(); myit< contvec.end(); myit++){ //
+X	temp = myit -> ReturnDLevel(); // assigning difficulty level to temp
+X	stringstream(temp) >> lu; // converting temp to integer
+X	lu--; // reducing the value of integer by 1	
+X	// checking for the specific location to put the value of c
+X	if(lu == 0) //
+X	  twodimvec[lu].push_back(c);
+X	else if(lu == 1) //
+X	  twodimvec[lu].push_back(c);
+X	else if(lu == 2) //
+X	  twodimvec[lu].push_back(c); //
+X	else if(lu == 3) //
+X	  twodimvec[lu].push_back(c); //
+X	else if(lu == 4) //
+X	  twodimvec[lu].push_back(c); //
+X	else if(lu == 5) //
+X	  twodimvec[lu].push_back(c); //
+X	else if(lu == 6) //
+X	  twodimvec[lu].push_back(c); //
+X	else if(lu == 7) //
+X	  twodimvec[lu].push_back(c);//
+X	else if(lu == 8) //
+X	  twodimvec[lu].push_back(c); //
+X	else if(lu == 9) //
+X	  twodimvec[lu].push_back(c); //
+X	else if(lu == 10) //
+X	  twodimvec[lu].push_back(c); //
+X	else if(lu == (10+1)) //
+X	  twodimvec[lu].push_back(c); //
+X	
+X	c++; // increasing the value of c after each specific push back
+X     }	
+X   for(int i = 0; i < tr; i++){ //
+X	// checking the size of each row of twodimvec
+X	if(twodimvec[i].size() > 0){ //
+X	     // pasing the size to generate the random number
+X	     k = randnumber(twodimvec[i].size()); 
+X	     k--; // decreasing the value each time to keep track of index			
+X	     empty.push_back(twodimvec[i][k]); // pushing this to empty vector
+X	  } // end of if		
+X     } // end of for
+X   return empty; // returning that empty vector
+} // end of function
+X
+/*
+X * Funtction defination of randomnumber
+X * it takes the upper bound as a parameter and generates a random number
+X * in that range(0-uper bound)
+X */
+int randnumber(int ub){ //
+X   int upperBound = ub; // 
+X   srand(time(NULL));  // Initializes the random number generator. 
+X   int randomNumber = rand() % upperBound + 1; //
+X   return randomNumber;	//
+} // end of function
+SHAR_EOF
+  (set 20 11 03 07 02 36 48 'functions.cc'; eval "$shar_touch") &&
+  chmod 0644 'functions.cc'
+if test $? -ne 0
+then ${echo} 'restore of functions.cc failed'
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'functions.cc: MD5 check failed'
+       ) << SHAR_EOF
+bd8a43b279c9bc677510690514ab4bec  functions.cc
+SHAR_EOF
+  else
+test `LC_ALL=C wc -c < 'functions.cc'` -ne 12070 && \
+  ${echo} 'restoration warning:  size of functions.cc is not 12070'
+  fi
+fi
+# ============= main.hh ==============
+if test -f 'main.hh' && test "$first_param" != -c; then
+  ${echo} 'x -SKIPPING main.hh (file already exists)'
+else
+${echo} 'x - extracting main.hh (text)'
+  sed 's/^X//' << 'SHAR_EOF' > 'main.hh' &&
+/*
+X * Autho  r: Abu Shumon
+X * Student number: 224088
+X * Program name: Who wants to be a millioner
+X * Version : 1.0
+X * All right reserved by the author.
+X * This is specific ation file of a reknown game "Who wants to be a millioner"
+X * Details informati	  on about the game can be found here: 
+X * http://www.cs.tut.fi/~p   rog2/homework/
+X * 			     
+X */			     
+X
+#ifndef MAIN_HH		     
+#define MAIN_HH		     
+X	
+#include<iostream>
+#include<vector>	     	       
+#include<string>
+#include<sstream>	
+#include<fstream>	
+#include<cstdlib>	
+#include<algorithm>	
+#include<fstream>	
+X	
+#define Z 12		
+X	
+using namespace std;
+X    
+class QuesType
+{	  	  
+X	private:  
+X		string diflevel;
+X		string ques;
+X		string option1;
+X		string option2;	 
+X		string option3;	 
+X		string option4;	 
+X		string corrans;	 
+X	public:	
+X		void AddfromFile(string, string, string, string, string, string, string);
+X		void AddQuestion(vector<QuesType> &cv, QuesType &n2);
+X		void EditQuestion(signed int target_qno, QuesType &n2, vector<QuesType > &contvec);
+X		void RemoveQuestion(int, vector<QuesType > &contvec);	       
+X		void PrintAll();		       
+X		void PrintAQuestion();		       
+X		void PrintByDLevel(string target_dlevel, vector<QuesType > &contvec);
+X		void SaveQuestion(vector<QuesType > &contvec);	  
+X		vector<int> GenerateSet(vector<QuesType > &contvec);	
+X		void PrintGenerated();		
+X		string ReturnDLevel();		
+};
+#endif			
+SHAR_EOF
+  (set 20 11 03 07 01 48 28 'main.hh'; eval "$shar_touch") &&
+  chmod 0644 'main.hh'
+if test $? -ne 0
+then ${echo} 'restore of main.hh failed'
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'main.hh: MD5 check failed'
+       ) << SHAR_EOF
+90859ac355ef1f42d2e11200ef5a024e  main.hh
+SHAR_EOF
+  else
+test `LC_ALL=C wc -c < 'main.hh'` -ne 1438 && \
+  ${echo} 'restoration warning:  size of main.hh is not 1438'
+  fi
+fi
+if rm -fr ${lock_dir}
+then ${echo} 'x - removed lock directory `'${lock_dir}\''.'
+else ${echo} 'x - failed to remove lock directory `'${lock_dir}\''.'
+  exit 1
+fi
+exit 0

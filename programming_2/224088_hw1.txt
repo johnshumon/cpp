@@ -1,0 +1,154 @@
+1
+whats your name?
+a.Alex
+b.Vanuhi
+c.John
+d.Kutimuti
+correct: d
+1
+In basketball, a shot made outside of the arc is worth how many points?
+a.2
+b.3
+c.1
+d.4
+correct: b
+2
+Where is Bangladesh?
+a.In asia
+b.In europe
+c.In africa
+d.In america
+correct: a
+2
+In what century was the War of 1812 fought?
+a.19th
+b.17th
+c.18th
+d.36th
+correct: a
+3
+In cartoons and comic strips, what is commonly displayed on a gravestone?
+a.Me andre
+b.RIP
+c.Remember me
+d.i am dead
+correct: b
+4
+In cartoons and comic strips, what is commonly displayed on a gravestone?
+a.7
+b.6
+c.5
+d.4
+correct: a
+5
+As of May 2001, which of the following is not a color of an M and M candy?
+a.Tan
+b.Blue
+c.Green
+d.Brown
+correct: a
+6 
+In which time period did the dinosaurs mainly live?
+a.Cenozoic
+b.Paleozoic
+c.Precambrian
+d.Mesozoic
+correct: d
+7
+Who became the ultimate survivior in 'Survivor 2: Australian Outback'?
+a.Colby
+b.Elisabeth
+c.Keith
+d.Tina
+correct: d
+8
+Who invented dynamite?
+a.Thomas Edison
+b.Ernest H. Verwiler
+c.Charles Plunk
+d.Alfred Nobel
+correct: d
+9
+How many letters are in Richard Nixon's middle name?
+a.7
+b.9
+c.6
+d.8
+correct: a
+10
+According to Arthurian legend, where did Sir Bedivere throw the Excalibur when King Arthur died?
+a.The ground
+b.Through King Arthur
+c.A lake
+d.Through himself
+correct: c
+11
+The Latin word 'cygnus' means what when translated into English?
+a.Hawk
+b.Shark
+c.Creature
+d.Swan
+correct: d
+12
+What Major League Baseball player once said, "Today, I consider myself the luckiest man on the face of the earth."
+a.Joe DiMaggio
+b.Lou Gehrig
+c.Babe Ruth
+d.Jackie Robinson
+correct: b
+11
+Which of the following states' zip code's first number is not 8?
+a.Wyoming
+b.Utah
+c.Arizona
+d.Oklahoma
+correct: d
+7
+The people who made the computer language BASIC created it where?
+a.Honeywell
+b.IBM
+c.Dartmouth College
+d.MIT
+correct: c
+12
+Which political figure was born with the name Lev Davidovich Bronstein?
+a.Vladimir Lenin
+b.Leon Trotsky
+c.Joseph Stalin
+d.Nikolai Bukharin
+correct: b
+2
+What is varicella?
+a.a fancy pasta
+b.a type of opera
+c.the chicken pox virus
+d.ancient Roman poetry
+correct:a
+3
+An airplane's black box is usually what color?
+a.black
+b.white
+c.orange
+d.purple
+correct: a
+4
+What company makes perfumes called 'Beautiful' and 'Pleasures'?
+a.Estee Lauder
+b.Ralph Lauren
+c.Elizabeth Arden
+d.Calvin Klein
+correct: d
+5
+Who were the Know-Nothings?
+a.a comedy troupe
+b.computer designers
+c.a political party
+d.a spy ring
+correct: b
+6
+Who sang lead vocals for the band Big Brother and the Holding Company?
+a.Grace
+b.Slick
+c.Janis Joplin
+d.Mama Cass
+correct: c
