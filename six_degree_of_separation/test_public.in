@@ -1,0 +1,27 @@
+A 0 Panu
+A 1 Sampo
+A 2 Heli
+A 3 Sauli
+A 4 Lasse
+A 5 Tanja
+A 6 Iiris
+R R 0 6 Married
+R R 6 2 Relationship
+R R 2 3 Relationship
+R K 2 4 Daughter-Father
+R F 4 5 Friend
+R F 0 4 Neighbor
+A 7 Juulia
+R K 5 7 Biological mother
+R K 0 1 Father-Son
+R K 6 1 Mother-Son
+S 0 2 
+S 0 5
+A 8 Romeo
+S 0 8
+I R 0 1
+R R 7 8 Relationship
+S 0 8
+I R 0 6
+F 0
+Q

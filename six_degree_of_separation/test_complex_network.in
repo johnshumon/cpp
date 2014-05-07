@@ -1,0 +1,36 @@
+A 0 nolla
+A 1 first
+A 2 seond
+A 3 third
+A 4 fourth
+A 5 fifth
+A 6 sixth
+A 7 seventh
+A 8 eight
+A 9 nine
+A 10 ten
+A 11 eleven
+A 12 twelwe
+A 13 thirteen
+A 14 fourteen
+R R 0 1 Marriage
+R F 0 9 brother
+R F 0 10 friend
+R F 1 2 friend
+R F 2 3 friend
+R F 3 4 friend
+R F 4 5 friend
+R F 5 6 friend
+R F 6 7 friend
+R R 6 8 Common-law-marriage
+R F 8 11 friend
+R F 8 12 friend
+R F 5 11 friend
+R F 3 9 friend
+R F 11 13 friend
+R F 9 13 friend
+R F 12 14 friend
+S 0 7
+S 0 12
+S 10 14
+Q

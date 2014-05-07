@@ -1,0 +1,16 @@
+> A 0 Adam
+> R R 0 0 Relation to oneself
+Error: Id1 is equal to Id2.
+> I R 0 0
+No relation found.
+> I F 0 0
+No relation found.
+> S 0 0
+Error: Id1 is equal to Id2.
+> E> E> F 0
+ID not found.
+> A 0 Adam
+> F 0
+Adam has friends:
+No friends.
+> Q

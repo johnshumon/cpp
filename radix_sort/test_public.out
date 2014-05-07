@@ -1,0 +1,11 @@
+> R public_words
+> S
+> P
+aardvark adapter airframes anamorphic approximate astronomical badgering beaus biochemist bogeys
+> X max
+astronomical 12
+> X min
+beaus 5
+> R does-not-exist
+Error: file not found.
+> Q

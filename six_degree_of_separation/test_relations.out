@@ -1,0 +1,83 @@
+> A 0 alfa
+> A 1 beta
+> A 2 gamma
+> A 3 delta
+> A 4 epsilon
+> A 5 zeta
+> A 6 kappa
+> A 7 lambda
+> A 8 mu
+> A 9 xi
+> A 10 omicron
+> A 11 rho
+> A 12 sigma
+> A 13 tau
+> A 14 upsilon
+> A 15 omega
+> R F 0 1 Friends
+> R F 0 15 Friends
+> I R 0 15
+No relation found.
+> F 0
+alfa has friends:
+beta F Friends
+omega F Friends
+> R R 0 15 Married
+> I F 0 15
+No relation found.
+> I R 0 15
+alfa R omega
+> F 0
+alfa has friends:
+beta F Friends
+omega R Married
+> R R 1 2 Related
+> R K 2 3 Brothers
+> R K 2 4 Brothers
+> R K 5 6 Sisters
+> R K 5 7 Sisters
+> I K 5 7
+zeta K lambda
+> F 2
+gamma has friends:
+beta R Related
+delta K Brothers
+epsilon K Brothers
+> F 5
+zeta has friends:
+kappa K Sisters
+lambda K Sisters
+> R R 4 6 Married
+> F 4
+epsilon has friends:
+gamma K Brothers
+kappa R Married
+> F 13
+tau has friends:
+No friends.
+> R R 5 8 Is child of
+> R F 5 9 Friends
+> F 5
+zeta has friends:
+kappa K Sisters
+lambda K Sisters
+mu R Is child of
+xi F Friends
+> I R 5 9
+No relation found.
+> R K 10 11 Siblings
+> R K 11 12 Siblings
+> I K 10 12
+No relation found.
+> R K 12 13 Siblings
+> I K 11 13
+No relation found.
+> R K 10 10 Siblings
+Error: Id1 is equal to Id2.
+> R K 10 10 Siblings 2
+Error: Id1 is equal to Id2.
+> R K 10 10 Siblings 3
+Error: Id1 is equal to Id2.
+> R K 10 10 Siblings 4
+Error: Id1 is equal to Id2.
+> Q

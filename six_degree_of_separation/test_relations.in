@@ -1,0 +1,49 @@
+A 0 alfa
+A 1 beta
+A 2 gamma
+A 3 delta
+A 4 epsilon
+A 5 zeta
+A 6 kappa
+A 7 lambda
+A 8 mu
+A 9 xi
+A 10 omicron
+A 11 rho
+A 12 sigma
+A 13 tau
+A 14 upsilon
+A 15 omega
+R F 0 1 Friends
+R F 0 15 Friends
+I R 0 15
+F 0
+R R 0 15 Married
+I F 0 15
+I R 0 15
+F 0
+R R 1 2 Related
+R K 2 3 Brothers
+R K 2 4 Brothers
+R K 5 6 Sisters
+R K 5 7 Sisters
+I K 5 7
+F 2 
+F 5
+R R 4 6 Married
+F 4
+F 13
+R R 5 8 Is child of
+R F 5 9 Friends
+F 5
+I R 5 9
+R K 10 11 Siblings
+R K 11 12 Siblings
+I K 10 12
+R K 12 13 Siblings
+I K 11 13
+R K 10 10 Siblings
+R K 10 10 Siblings 2
+R K 10 10 Siblings 3
+R K 10 10 Siblings 4
+Q
