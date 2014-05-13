@@ -1,0 +1,84 @@
+[board]
+Communistic Regime
+[/board]
+
+[die]
+123
+[/die]
+
+[money]
+1
+[/money]
+
+
+[square]
+START:Start st.:1:1:0:0
+[/square]
+
+[square]
+CARD:Police 2:3:0:0:0
+[/square]
+
+[square]
+CARD:Police 3:4:0:0:0
+[/square]
+
+[square]
+CARD:Police 4:5:0:0:0
+[/square]
+
+[square]
+CARD:Police 5:6:0:0:0
+[/square]
+
+[square]
+CARD:Police 6:7:0:0:0
+[/square]
+
+[square]
+CARD:Police 1:16:0:0:0
+[/square]
+
+[square]
+PRISON:Prison:2:0:0:0
+[/square]
+
+[square]
+STREET:Gray st:8:0:0:0
+[/square]
+
+[square]
+STREET:Gray st:9:0:0:0
+[/square]
+
+[square]
+STREET:Gray st:10:0:0:0
+[/square]
+
+[square]
+STREET:Gray st:11:0:0:0
+[/square]
+
+[square]
+STREET:Gray st:12:0:0:0
+[/square]
+
+[square]
+STREET:Gray st:13:0:0:0
+[/square]
+
+[square]
+STREET:Gray st:14:0:0:0
+[/square]
+
+[square]
+STREET:Gray st:15:0:0:0
+[/square]
+
+[card]
+State police throws you to prison:0:0:1
+[/card]
+
+[card]
+State police throws you to prison:-20000:0:1
+[/card]
