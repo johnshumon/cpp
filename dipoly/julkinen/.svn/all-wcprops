@@ -3,29 +3,29 @@ svn:wc:ra_dav:version-url
 V 45
 /kurssi/kurssikamat/!svn/ver/64/tags/julkinen
 END
-initexception.hh
-K 25
-svn:wc:ra_dav:version-url
-V 62
-/kurssi/kurssikamat/!svn/ver/49/tags/julkinen/initexception.hh
-END
 boarddrawer.cc
 K 25
 svn:wc:ra_dav:version-url
 V 60
 /kurssi/kurssikamat/!svn/ver/49/tags/julkinen/boarddrawer.cc
 END
-initreader.hh
+initexception.hh
 K 25
 svn:wc:ra_dav:version-url
-V 59
-/kurssi/kurssikamat/!svn/ver/51/tags/julkinen/initreader.hh
+V 62
+/kurssi/kurssikamat/!svn/ver/49/tags/julkinen/initexception.hh
 END
 chopper.cc
 K 25
 svn:wc:ra_dav:version-url
 V 56
 /kurssi/kurssikamat/!svn/ver/49/tags/julkinen/chopper.cc
+END
+initreader.hh
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/kurssi/kurssikamat/!svn/ver/51/tags/julkinen/initreader.hh
 END
 die.cc
 K 25
@@ -39,17 +39,17 @@ svn:wc:ra_dav:version-url
 V 56
 /kurssi/kurssikamat/!svn/ver/49/tags/julkinen/utility.cc
 END
-policestate.txt
-K 25
-svn:wc:ra_dav:version-url
-V 61
-/kurssi/kurssikamat/!svn/ver/49/tags/julkinen/policestate.txt
-END
 boarddrawer.hh
 K 25
 svn:wc:ra_dav:version-url
 V 60
 /kurssi/kurssikamat/!svn/ver/49/tags/julkinen/boarddrawer.hh
+END
+policestate.txt
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/kurssi/kurssikamat/!svn/ver/49/tags/julkinen/policestate.txt
 END
 chopper.hh
 K 25

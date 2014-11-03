@@ -5,9 +5,9 @@
 #ifndef SQUARE_HH
 #define SQUARE_HH
 
-#include "julkinen/utility.hh"
-#include "julkinen/initreader.hh"
-#include "player.hh"
+#include "./julkinen/utility.hh"
+#include "./julkinen/initreader.hh"
+#include "playerlist.hh"
 
 #include<string>
 #include<vector>
@@ -27,7 +27,6 @@ using std::cout;
 ///square
 ///**************************************************************************
 
-class square;
 
 class square
 {
@@ -87,15 +86,14 @@ public:
     string getSquareName() const;
     int getSquarePrice() const;
     string getSquareType() const;
-//    int getSquareOwner (int currentSquare) const;
 
-    virtual void buyStreet(int, vector<player*>) {}
+    virtual void buyStreet(int, playerlist&) {}
     virtual bool checkAllowableShack()
     {
         return false;
     }
-    virtual void buildShack(int, vector<player*>) {}
-    virtual int payRent(int, vector<player*>)
+    virtual void buildShack(int, playerlist&) {}
+    virtual int payRent(int, playerlist&)
     {
         return 0;
     }
@@ -109,11 +107,8 @@ public:
     {
         return 0;
     }
-    // virtual void drawCard(int, vector<player>&, InitReader::Cards&) {}
-    virtual void giveBribe(int, vector<player*>) {}
-    //virtual void squareAction(int, vector<player>&, string) {}
-    virtual void squareAction(int, vector<player*>,string,
-                              InitReader::Cards&,vector<square*>) {}
+    virtual void drawCard(int, playerlist&, InitReader::Cards&) {}
+    virtual void giveBribe(int, playerlist&) {}
 
 
 };
@@ -161,10 +156,6 @@ public:
 /// Destructor
     virtual ~start() {}
 
-
-/// methods
-void squareAction(int, vector<player*>,string,
-                              InitReader::Cards& cards,vector<square*>);
 
 };
 
@@ -220,13 +211,11 @@ public:
         //void setNoOfShacks();
         void setOwnerID(int);
         int getOwnerID() const;
-        void buyStreet(int, vector<player*>);
+        void buyStreet(int, playerlist&);
         bool checkAllowableShack();
-        void buildShack(int, vector<player*>);
-        int payRent(int, vector<player*>);
+        void buildShack(int, playerlist&);
+        int payRent(int, playerlist&);
         int getShackPrice()const;
-        void squareAction(int, vector<player*>,string,
-                              InitReader::Cards& cards,vector<square*>);
         //void checkBuildStatus();
 
 
@@ -279,9 +268,7 @@ public:
 
 ///methods
 
-void giveBribe(int, vector<player*>);
-void squareAction(int, vector<player*>,string,
-                              InitReader::Cards& cards,vector<square*>);
+void giveBribe(int, playerlist&);
 
 };
 
@@ -330,14 +317,29 @@ public:
     virtual ~card() {}
 
 
-/// Methods
+/// Mthods
 
-void drawCard(int, vector<player*>, InitReader::Cards&, vector<square*>);
-void squareAction(int, vector<player*>,string,
-                              InitReader::Cards& cards,vector<square*>);
+void drawCard(int, playerlist&, InitReader::Cards&);
 
 
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #endif

@@ -3,39 +3,23 @@
 #ifndef GAME_HH
 #define GAME_HH
 
-#include "julkinen/initreader.hh"
-#include "player.hh"
-#include "square.hh"
-#include "createplayer.hh"
+#include "./julkinen/initreader.hh"
+#include "squarelist.hh"
+#include "playerlist.hh"
 
 #include <vector>
-
+#define MAX_SQUARE 16
+#define FORTY_EIGHT 48
 
 using std::vector;
-
-
-
-struct SquareSort
-{
-    string stype ;
-    string name  ;
-    int id  ;
-    int price  ;
-    int shackPrice ;
-    int shackMax ;
-};
-
-
-bool operator <(const SquareSort &lhs, const SquareSort &rhs);
-
 
 
 class game
 {
 
 private:
-    vector <square*>  squareList_;
-    vector <player*>  pl_;
+    squarelist sl_;
+    playerlist pl_;
     int seed_;
     InitReader::Cards cards_;
 
@@ -45,7 +29,7 @@ public:
     game(){}
     game(const game &cSource)
     {
-        squareList_= cSource.squareList_;
+        sl_= cSource.sl_;
         pl_= cSource.pl_;
         seed_= cSource.seed_;
         cards_= cSource.cards_;
@@ -54,16 +38,10 @@ public:
 // Assignment Operator
     game& operator= (const game &cSource);
 
-/// Methods for game class
 
-    void createPlayerList(int);
-    void createSquareList(InitReader::Streets);
-    void clearSquarelist();
-	void clearPlayerlist();
-    void createGame(int,InitReader::Cards);
+    void createGame(playerlist&, squarelist&, int,InitReader::Cards);
     void playGame();
-    void deletePlayer(int currentPlayer);
-//    void drawBoard(playerlist&, squarelist&);
+    void drawBoard(playerlist&, squarelist&);
 
 };
 

@@ -2,7 +2,7 @@
 //
 //
 #include "square.hh"
-
+#include "playerlist.hh"
 
 using std::cin;
 using std::endl;
@@ -100,35 +100,6 @@ string square::getSquareType()const
 
 
 
-/// SquareAction for start
-void start::squareAction(int i, vector<player*> pl_,string inputOption,
-                              InitReader::Cards& cards,vector<square*> sl_)
-{   
-	InitReader::Cards cd = cards;
-	vector<square*> sl = sl_;
-	string s = inputOption;
-    pl_[i]->balanceUpdate( getSquarePrice () );
-    cout << "start square: " << getSquarePrice () << endl;
-	
-	if (inputOption == "buy")
-	{
-		cout << "You can not buy the square." << endl;
-	}
-	
-	else if(inputOption == "build")
-	{
-		cout << "YOu do not own the square. You can only build on streets you own." << endl;
-	}
-	
-	else if(inputOption == "bribe")
-	{
-		cout << "Check your medication. You are not in the prison." << endl;
-	}
-	
-}
-
-
-
 ///street
 ///**************************************************************************
 
@@ -136,7 +107,7 @@ void start::squareAction(int i, vector<player*> pl_,string inputOption,
 
 int street::getNoOfShacks() const
 {
-    return numberOfShacks_;
+   return numberOfShacks_;
 }
 
 
@@ -155,12 +126,12 @@ int street::getOwnerID() const
 }
 
 //
-void street::buyStreet(int currentPlayer,vector<player*> pl)  // CHECK THIS REFERENCE
+void street::buyStreet(int currentPlayer,playerlist& pl)  // CHECK THIS REFERENCE
 {
 
-    setOwnerID(pl[currentPlayer]->getID());
-    pl[currentPlayer]->balanceUpdate((-1)*squarePrice_);
-
+    setOwnerID(pl.getID(currentPlayer));
+    pl.balanceUpdate(currentPlayer,(-1)*squarePrice_);
+//    cout << pl.getID(currentPlayer)<<"bought a street" << endl;
 
 }
 
@@ -185,12 +156,12 @@ bool street::checkAllowableShack()
 //
 //
 
-void street::buildShack(int currentPlayer, vector<player*> pl)
+void street::buildShack(int currentPlayer, playerlist& pl)
 {
     if(numberOfShacks_ < maximumPosShacks_)
     {
         numberOfShacks_++;
-        pl[currentPlayer]->balanceUpdate((-1)*shackPrice_);
+        pl.balanceUpdate(currentPlayer,(-1)*shackPrice_);
 //        cout << pl.getID(currentPlayer)<<" built a shack" << endl;
     }
 }
@@ -198,25 +169,14 @@ void street::buildShack(int currentPlayer, vector<player*> pl)
 //
 // function for RENT
 //
-int street::payRent(int currentPlayer, vector <player*> pl)
+int street::payRent(int currentPlayer, playerlist& pl)
 {
-    int i = 0;
     int serial = 0;
     int rentAmount = 0;
     rentAmount = squarePrice_/4 +(numberOfShacks_)*(numberOfShacks_)*squarePrice_/10;
-
-    for(i =0; i < int(pl.size()); i++)
-    {
-        if (getOwnerID() == pl[i]->getID())
-        {
-            break;
-
-        }
-    }
-
-    serial = i;
-    pl[serial]->balanceUpdate(rentAmount);
-    pl[currentPlayer]->balanceUpdate((-1)*rentAmount);
+    serial = pl.findPlayerSerial(getOwnerID());
+    pl.balanceUpdate(serial,rentAmount);
+    pl.balanceUpdate(currentPlayer,(-1)*rentAmount);
     return rentAmount;
 }
 //
@@ -224,157 +184,11 @@ int street::payRent(int currentPlayer, vector <player*> pl)
 
 
 int street::getShackPrice() const
-{
-    return shackPrice_;
-}
+ {
+     return shackPrice_;
+ }
 
 
-/// SquareAction for street
-void street::squareAction(int i, vector<player*> pl_,string inputOption,
-                              InitReader::Cards& cards,vector<square*> sl_)
-
-{
-	InitReader::Cards cd = cards;
-	vector<square*> sl = sl_;
-    /// Pay rent if player's present position is owned by someone.
-    string owner;
-    int counter = 0;
-//    cout<<"RENT OPTION = " << pl_[i].getRentStatus();
-
-    if(getOwnerID() != pl_[i]->getID() &&
-            getOwnerID() > 0 && pl_[i]->getRentStatus()== true )
-    {
-        do
-        {
-            if(pl_[counter]->getID() == getOwnerID())
-            {
-                owner = pl_[counter]->getName();
-                break;
-            }
-            else
-            {
-                counter++;
-            }
-
-
-        }
-        while(true);
-
-        cout << getSquareName() <<" owned by " <<
-             owner
-             << ": "<< payRent(i, pl_) << "$" << endl;
-             pl_[i]->resetRentStatus();
-
-    } // Rent Finish.
-
-    if(pl_[i]->getType() == 0)
-    {
-
-
-        /// if "buy" is pressed this condition will be executed
-        if (inputOption == "buy" )
-        {
-
-            if(getOwnerID() == 0 && pl_[i]->getBalance() >= getSquarePrice() )
-            {
-                buyStreet(i, pl_);
-                cout << "you bought "<< getSquareName() << endl;
-            }
-
-
-            else if(getOwnerID() != pl_[i]->getID())
-            {
-                cout << "you cannot buy the square." << endl;
-    //
-            }
-
-            else if(pl_[i]->getBalance() < getSquarePrice() )
-            {
-                cout << "you do not have enough money to buy "
-                     << getSquareName() << endl;
-
-            }
-
-            else
-            {
-                cout << "You already bought the street" << endl;
-            }
-
-        }
-
-        /// if "build" is pressed this condition will be executed
-
-        else if (inputOption == "build")
-        {
-        if(getOwnerID() == pl_[i]->getID() && pl_[i]->getBalance() >=
-           getShackPrice()&& !checkAllowableShack() )
-        {
-            buildShack(i, pl_);
-            cout << "you built a new shack on "<< getSquareName() << endl;
-        }
-
-        else if(getOwnerID() != pl_[i]->getID() )
-        {
-            cout << "you do not own the square. you can only build on streets you own" << endl;
-
-        }
-
-
-        else if(checkAllowableShack())
-        {
-            cout << "The street already contains the maximum amount of shacks."<< endl;
-
-        }
-
-
-        else if(pl_[i]->getBalance() < getShackPrice())
-        {
-            cout << "you do not have enough money to build a new shack "<< endl;
-
-        }
-
-        else
-        {
-            cout << "Some error in building shack" << endl;
-        }
-
-
-    }
-
-    }
-
-    else
-    {
-
-        /// if "buy" is pressed this condition will be executed
-
-            if(getOwnerID() == 0 &&
-                    pl_[i]->getBalance() >= getSquarePrice () )
-            {
-                buyStreet(i, pl_);
-                cout << "you bought "<< getSquareName() << endl;
-            }
-
-            if(getOwnerID() == pl_[i]->getID() &&
-                    pl_[i]->getBalance() >= getShackPrice()&&
-                    !checkAllowableShack() )
-            {
-                buildShack(i, pl_);
-                cout << "you built a new shack on "<< getSquareName() << endl;
-            }
-
-
-    } // complete for AI player
-
-
-	if(inputOption == "bribe")
-	{
-		cout << "Check your medication. You are not in the prison." << endl;
-	}
-
-
-
-}
 
 
 
@@ -385,82 +199,18 @@ void street::squareAction(int i, vector<player*> pl_,string inputOption,
 ///**************************************************************************
 
 
-void prison::giveBribe(int currentPlayer, vector <player*> pl)
+void prison::giveBribe(int currentPlayer, playerlist& pl)
 {
-    pl[currentPlayer]->balanceUpdate((-1)*squarePrice_);
-    pl[currentPlayer]->resetPrisonStatus();
+    pl.balanceUpdate(currentPlayer,(-1)*squarePrice_);
+    pl.resetPrisonStatus(currentPlayer);
 
 }
-
-
-/// SquareAction for Prison
-void prison::squareAction(int i, vector<player*> pl_,string inputOption,
-                              InitReader::Cards& cards,vector<square*> sl_)
-
-{
-	InitReader::Cards cd = cards;
-	vector<square*> sl = sl_;
-    if( (pl_[i]->getType() == 0) & (inputOption == "bribe") )
-    {
-        if(pl_[i]->getPrisonStatus()== true &&
-            pl_[i]->getBalance() > getSquarePrice() )
-
-        {
-            giveBribe(i, pl_);
-            cout << "You bribed your way out of prison" << endl;
-
-        }
-        else if(pl_[i]->getPrisonStatus()== false)
-        {
-            cout << "Check your medication. You are not in the prison" << endl;
-        }
-
-        else if(pl_[i]->getBalance() < getSquarePrice()
-                && pl_[i]->getPrisonStatus()== true)
-        {
-            cout << pl_[i]->getBalance() <<endl;
-            cout << getSquarePrice() << endl;
-            cout << pl_[i]->getPrisonStatus() << endl;
-            cout << " You do not have enough money for bribe" << endl;
-        }
-
-        else
-        {
-            cout <<"some problem with 'bribe' command" << endl;
-        }
-
-    } //end of if for player type.
-
-    else if(pl_[i]->getType() == 1)
-    {
-        if(pl_[i]->getPrisonStatus()== true &&
-            pl_[i]->getBalance() > getSquarePrice() )
-            {
-                giveBribe(i, pl_);
-                cout << "You bribed your way out of prison" << endl;
-
-            }
-    }//end of else
-	
-	if (inputOption == "buy")
-	{
-		cout << "You can not buy the square." << endl;
-	}
-	
-	else if(inputOption == "build")
-	{
-		cout << "YOu do not own the square. You can only build on streets you own." << endl;
-	}
-	
-}//end of function.
-
 
 
 ///CARD
 ///**************************************************************************
 
-void card::drawCard(int currentPlayer, vector <player*> pl, InitReader::Cards& cards,
-                    vector <square*> sl )
+void card::drawCard(int currentPlayer, playerlist& pl, InitReader::Cards& cards )
 {
 
     int i = 0;
@@ -484,7 +234,7 @@ void card::drawCard(int currentPlayer, vector <player*> pl, InitReader::Cards& c
     if(prison == true)
     {
         cout << "YES" << endl;
-
+        pl.setPrisonStatus(currentPlayer);
     }
     else
     {
@@ -501,43 +251,18 @@ void card::drawCard(int currentPlayer, vector <player*> pl, InitReader::Cards& c
     Card.prison = prison;
     cards.push_back( Card );
 
-    pl[currentPlayer]->balanceUpdate(money);
-//    pl[currentPlayer].positionUpdate(move,sl);
+    pl.balanceUpdate(currentPlayer,money);
+    pl.positionUpdate(currentPlayer,move);
     if(prison== true)
     {
         int move1 = 0;
-        move1 = 4- pl[currentPlayer]->getPosition();
-        pl[currentPlayer]->positionUpdate(move1,sl);
-//        cout << "PRISON is TRUE so"
-//        << pl[currentPlayer].getPosition() << endl;
-        pl[currentPlayer]->setPrisonStatus();
+        move1 = 4- pl.getPosition(currentPlayer);
+        pl.positionUpdate(currentPlayer,move1);
 
-    }
-    else
-    {
-        pl[currentPlayer]->positionUpdate(move,sl);
-//        cout << "PRISON is FALSE so move = " << move
-//        << pl[currentPlayer].getPosition() << endl;
     }
 
 }
 
-
-
-/// SquareAction for card
-
-void card::squareAction(int i, vector<player*> pl_,string inputOption, InitReader::Cards& cards,
-                        vector<square*> sl)
-{
-    /// Card Drawing
-	string s = inputOption;
-    do
-    {
-        drawCard(i, pl_,cards, sl);
-
-    } while(false);
-//    while(getSquareType() == "CARD");
-}
 
 
 

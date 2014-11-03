@@ -1,0 +1,91 @@
+[board]
+example
+[/board]
+
+[die]
+123
+[/die]
+
+[money]
+1500
+[/money]
+
+[square]
+START:Start st.:1:10:0:0
+[/square]
+
+[square]
+STREET:Broad Way:2:1500:500:9
+[/square]
+
+[square]
+STREET:Tiny Street:3:10:1:1
+[/square]
+
+[square]
+STREET:Small Road:4:100:10:2
+[/square]
+
+[square]
+STREET:False st.:16:4000:0:0
+[/square]
+
+[square]
+PRISON:Prison:5:400:0:0
+[/square]
+
+[square]
+STREET:No Way:6:100:10:7
+[/square]
+
+[square]
+STREET:My Way:7:1100:100:1
+[/square]
+
+[square]
+STREET:High Way:8:-1000:0:0
+[/square]
+
+[square]
+STREET:Death Road:9:50:50:2
+[/square]
+
+[square]
+STREET:Life Lane:10:1000:400:2
+[/square]
+
+[square]
+STREET:Hameentie:11:4000:400:1
+[/square]
+
+[square]
+STREET:Toijalantie:12:100:10:1
+[/square]
+
+[square]
+CARD:Card Street:13:0:0:0
+[/square]
+
+[square]
+CARD:Short Cut:14:400:200:2
+[/square]
+
+[square]
+STREET:Dead End:15:5000:1000:3
+[/square]
+
+[card]
+You are speeding and police catches you:-1000:0:1
+[/card]
+
+[card]
+You forgot your wallet to a restaurant, you return to look for it.:10:-5:0
+[/card]
+
+[card]
+You win in lottery:500:1:0
+[/card]
+
+[card]
+You take a taxi:-100:5:0
+[/card]

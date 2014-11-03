@@ -2,10 +2,12 @@
 //
 //
 
-#include "julkinen/die.hh"
-#include "julkinen/boarddrawer.hh"
-#include "julkinen/initreader.hh"
-#include "julkinen/initexception.hh"
+#include "./julkinen/die.hh"
+#include "./julkinen/boarddrawer.hh"
+#include "./julkinen/initreader.hh"
+#include "./julkinen/initexception.hh"
+#include "playerlist.hh"
+#include "squarelist.hh"
 #include "game.hh"
 
 #include <iostream>
@@ -39,18 +41,18 @@ int main(int argc, char** argv )
 
       int initialBalance = 0;
       initialBalance = reader.startMoney();
+
+      squarelist sl;
+      playerlist pl;
       int seed = 0;
       seed = reader.dieSeed();
+      pl.createPlayerList(initialBalance);
+      sl.createSquareList(streets);
+//      sl.showSquareList();
 
       game dipoly;
-      dipoly.createGame(seed,cards);
-      dipoly.createPlayerList(initialBalance);
-      dipoly.createSquareList(streets);
-      //dipoly.show2();
+      dipoly.createGame(pl, sl, seed, cards);
       dipoly.playGame();
-//      dipoly.drawBoard();
-      dipoly.clearSquarelist();
-	  dipoly.clearPlayerlist();
 
    }
    catch( FileError& fe )

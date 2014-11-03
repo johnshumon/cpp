@@ -3,11 +3,11 @@
 # object file definitions, insert your own to the end of the list
 # remeber to run "gmake depend" after making changes to includes
 # or adding new object files
-OBJS =	julkinen/chopper.o julkinen/utility.o julkinen/boarddrawer.o julkinen/die.o julkinen/initreader.o dipoly.o game.o player.o createplayer.o square.o
+OBJS =	die.o initreader.o boarddrawer.o utility.o chopper.o  playerlist.o square.o player.o createplayer.o squarelist.o dipoly.o game.o
 SRC = *.cc
 
 # definitions of compilers etc.
-CXX = tutg++
+CXX = g++
 CXXFLAGS =
 DEPXX = g++ -MM
 DEPFILE = dependencyfile.make
