@@ -19,5 +19,5 @@ Programming assignments done using C++ during the course "Basic programming"
 #### Programming-II 
 Programming assignments done using C++ during the course "Advanced programming"
 
-* [Programming-I](./programming_2/)
+* [Programming-II](./programming_2/)
 
