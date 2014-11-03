@@ -1,6 +1,6 @@
 #### Task
 
-Social networks have caused a social pressure to reach also people, who uses text based user interfaces. This program offers a possibility to model a network, which is similar to many social networks. Each person to be added to the social network has an unique id, which is a positive integer. There may be persons with same name, like in real life. It is possible to add relations between persons and ask if two persons has a specific relationship. It also offers interesting Six Degrees of Separation -functionality. The Six Degrees of Separation is described in (wikipedia)[http://en.wikipedia.org/wiki/Six_degrees_of_separation]
+Social networks have caused a social pressure to reach also people, who uses text based user interfaces. This program offers a possibility to model a network, which is similar to many social networks. Each person to be added to the social network has an unique id, which is a positive integer. There may be persons with same name, like in real life. It is possible to add relations between persons and ask if two persons has a specific relationship. It also offers interesting Six Degrees of Separation -functionality. The Six Degrees of Separation is described in [wikipedia](http://en.wikipedia.org/wiki/Six_degrees_of_separation)
 
 
 #### Commands
