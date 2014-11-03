@@ -1,4 +1,4 @@
-/* Design and Implementation of Data Structure
+/* Design and Implementation of Data Structure 
 *  project: Sudoku
 *  declaration of data structure file with 
 *  data member and member function.

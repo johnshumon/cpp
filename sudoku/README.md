@@ -1,1 +1,1 @@
-It solves sudoku puzzle of given row*column grid.
+It solves sudoku puzzle of given row*column grid. 

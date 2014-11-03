@@ -5,7 +5,7 @@
 # 16.06.2011 SK - added -w in style and -Wextra for compiling with g++
 # 17.06.2011 SK - allows only datastructure.cc, .hh and main.cc to be compiled
 
-.PHONY: all
+.PHONY: all 
 
 SRC=main.cc sudokusolver.cc
 HDR=sudokusolver.hh
