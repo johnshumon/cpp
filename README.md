@@ -36,3 +36,8 @@ Data Structure Programming Project. It's a automated vote counter that counts le
 Data Structure Programming Project. Developed an efficient directory of keywords that sorts given keywords in ascending order.
 
 * [Keyword directory](./radix_sort/)
+
+#### Sudoku
+Advanced Design and implementation of Data Structure Programming Project. Developed a sudoku puzzle solver.
+
+* [Sudoku](./sudoku/)
