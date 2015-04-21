@@ -21,11 +21,7 @@
 
 #include <iostream>
 #include <string>
-#include <sstream>
-#include <cmath>
-#include <cstddef>
-#include <ctype.h>
-#include <stdlib.h>
+#include <stdlib.h> // atoi
 #include <typeinfo>
 
 template <typename TYPE>
