@@ -10,5 +10,4 @@ See makefile for compiler information.
  * Use a recursive solution.
  
 ####### TASK 2: IMPLEMENT: Test functions
- *
  * Write a set of as many tests as needs in order to validate binomial coefficient function.
