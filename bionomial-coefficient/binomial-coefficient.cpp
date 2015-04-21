@@ -1,11 +1,9 @@
 /**
  *
  * Recruitment test: binomial-coefficient.cpp
- * Created on: Apr 10, 2015
  * Author: Abu SHumon
  *
- * This test is implemented in JavaScript, but if you wish, you can implement the same functionality with another language.
- * If your code requires compiling, please, add compiling instructions in the comments.
+ * Implementation in C++
  */
 
 /**
@@ -14,8 +12,12 @@
  * C(n,k) = n! / [ k! (n - k)! ]
  * Where x! is the factorial of x
  *
- * Use a recursive solution. If needed, you can implement helper functions.
+ * TASK 2: IMPLEMENT: Tests for function C
+ *
+ * Write a set of tests, that validate binomial coefficient function.
+ * Write as many test cases as you feel is needed.
  */
+
 
 #include <iostream>
 #include <string>
