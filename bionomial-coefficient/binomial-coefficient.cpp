@@ -1,6 +1,6 @@
 /**
  *
- * Recruitment test: binomial-coefficient.cpp
+ * Program: binomial-coefficient.cpp
  * Author: Abu SHumon
  *
  * Implementation in C++
